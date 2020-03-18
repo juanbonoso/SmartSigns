@@ -23,7 +23,6 @@ import * as THREE from 'three';
   },
 })
 export default class ThreePage extends Vue {
-  /* eslint-disable @typescript-eslint/no-explicit-any */
   camera: any;
   scene: any;
   renderer: any;
