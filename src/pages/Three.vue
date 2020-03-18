@@ -13,14 +13,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "../components/HelloWorld.vue";
-import * as THREE from "three";
+import { Component, Vue } from 'vue-property-decorator';
+import HelloWorld from '../components/HelloWorld.vue';
+import * as THREE from 'three';
 
 @Component({
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+  },
 })
 export default class ThreePage extends Vue {
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -33,12 +33,7 @@ export default class ThreePage extends Vue {
   init() {
     // eslint-disable-next-line
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
 
@@ -47,9 +42,7 @@ export default class ThreePage extends Vue {
     document.body.appendChild(this.renderer.domElement);
 
     const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const texture = new THREE.TextureLoader().load(
-      "../assets/textures/metal.jpg"
-    );
+    const texture = new THREE.TextureLoader().load('../assets/textures/metal.jpg');
 
     // const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
     const material = new THREE.MeshBasicMaterial({ map: texture });
@@ -74,18 +67,13 @@ export default class ThreePage extends Vue {
     function init() {
       scene = new THREE.Scene();
 
-      camera = new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        1,
-        10000
-      );
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
       camera.position.z = 1000;
 
       geometry = new THREE.BoxGeometry(200, 200, 200);
       material = new THREE.MeshBasicMaterial({
         color: 0xff0000,
-        wireframe: true
+        wireframe: true,
       });
 
       mesh = new THREE.Mesh(geometry, material);
