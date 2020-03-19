@@ -15,86 +15,16 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '../components/HelloWorld.vue';
-import * as THREE from 'three';
-
+import { ThreeJSTest } from '@/utils/Three';
 @Component({
   components: {
     HelloWorld,
   },
 })
 export default class ThreePage extends Vue {
-  camera: any;
-  scene: any;
-  renderer: any;
-  mesh: any;
-  cube: any;
-
-  init() {
-    // eslint-disable-next-line
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-
-    document.body.appendChild(this.renderer.domElement);
-
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const texture = new THREE.TextureLoader().load('../assets/textures/metal.jpg');
-
-    // const material = new THREE.MeshBasicMaterial({ color: 0x0000ff });
-    const material = new THREE.MeshBasicMaterial({ map: texture });
-    this.cube = new THREE.Mesh(geometry, material);
-    this.scene.add(this.cube);
-
-    this.camera.position.z = 5;
-  }
-
-  animate() {
-    requestAnimationFrame(this.animate);
-    this.cube.rotation.x += 0.01;
-    this.cube.rotation.y += 0.01;
-
-    this.renderer.render(this.scene, this.camera);
-  }
-
   mounted() {
-    let scene: any, camera: any, renderer: any;
-    let geometry, material, mesh: any;
-
-    function init() {
-      scene = new THREE.Scene();
-
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-      camera.position.z = 1000;
-
-      geometry = new THREE.BoxGeometry(200, 200, 200);
-      material = new THREE.MeshBasicMaterial({
-        color: 0xff0000,
-        wireframe: true,
-      });
-
-      mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-
-      renderer = new THREE.WebGLRenderer();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      document.body.appendChild(renderer.domElement);
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-
-      mesh.rotation.x += 0.01;
-      mesh.rotation.y += 0.02;
-
-      renderer.render(scene, camera);
-    }
-
-    init();
-    animate();
+    const threeJSTest = new ThreeJSTest();
+    threeJSTest.render();
   }
 }
 </script>
