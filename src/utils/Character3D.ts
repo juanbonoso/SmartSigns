@@ -9,7 +9,10 @@ export class Character3D {
   private controls: any;
   private renderer!: THREE.WebGLRenderer;
   private clock = new THREE.Clock();
-  private mixers: any[] = [];
+  private mixers: THREE.AnimationMixer[] = [];
+  private model!: THREE.Object3D;
+  private current_action!: THREE.AnimationAction;
+  private animations: THREE.AnimationClip[] = [];
 
   constructor() {
     this.container = document.querySelector('#scene-container') as HTMLElement;
@@ -53,22 +56,20 @@ export class Character3D {
     // A reusable function to set up the models. We're passing in a position parameter
     // so that they can be individually placed around the scene
     const onLoad = (gltf: GLTF, position: THREE.Vector3) => {
-      const model = gltf.scene.children[0];
-      model.position.copy(position);
+      this.model = gltf.scene.children[0];
+      this.model.position.copy(position);
 
-      let animation = gltf.animations[0];
-      console.table(gltf.animations);
-      if (gltf.animations.length > 1) {
-        animation = gltf.animations[0];
-      }
+      this.animations = [...gltf.animations];
+      console.table(this.animations);
+      const animation = gltf.animations[1];
 
-      const mixer = new THREE.AnimationMixer(model);
+      const mixer = new THREE.AnimationMixer(this.model);
       this.mixers.push(mixer);
 
-      const action = mixer.clipAction(animation);
-      action.play();
+      this.current_action = mixer.clipAction(animation);
+      this.current_action.play();
 
-      this.scene.add(model);
+      this.scene.add(this.model);
     };
 
     // the loader will report the loading progress to this function
@@ -85,12 +86,12 @@ export class Character3D {
     // so don't make any assumption about which one will finish loading first
     const parrotPosition = new THREE.Vector3(0, 0, 2.5);
     loader.load('./models/Parrot.glb', gltf => onLoad(gltf, parrotPosition), onProgress, onError);
-
+    /*
     const flamingoPosition = new THREE.Vector3(7.5, 0, -10);
     loader.load('./models/Flamingo.glb', gltf => onLoad(gltf, flamingoPosition), onProgress, onError);
 
     const storkPosition = new THREE.Vector3(0, -2.5, -10);
-    loader.load('./models/Stork.glb', gltf => onLoad(gltf, storkPosition), onProgress, onError);
+    loader.load('./models/Stork.glb', gltf => onLoad(gltf, storkPosition), onProgress, onError);*/
   }
 
   createRenderer() {
@@ -127,5 +128,13 @@ export class Character3D {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+  }
+
+  changeCurrentAnimation(index: number) {
+    this.current_action.stop(); 
+    const animation = this.animations[index];
+    const mixer = this.mixers[0];
+    this.current_action = mixer.clipAction(animation);
+    this.current_action.play();
   }
 }

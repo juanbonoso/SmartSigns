@@ -1,21 +1,12 @@
 <template>
-  <html>
-    <head>
-      <title>Discoverthreejs.com - Ch 1.7: Load Models</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta charset="UTF-8" />
-      <link rel="icon" href="https://discoverthreejs.com/favicon.ico" type="image/x-icon" />
-    </head>
-
-    <body>
-      <div id="app">
-        <h1 class="title"><a href="https://discoverthreejs.com/">Discoverthreejs.com</a> - Ch 1.7 Load Models</h1>
-        <div id="scene-container">
-          <!-- This div will hold our scene-->
-        </div>
-      </div>
-    </body>
-  </html>
+  <div id="app">
+    <h1 class="title"><a href="https://discoverthreejs.com/">Discoverthreejs.com</a> - Ch 1.7 Load Models</h1>
+    <div id="scene-container">
+      <!-- This div will hold our scene-->
+    </div>
+    <button type="button" class="btn" @click="character3D.changeCurrentAnimation(0)">Donde Estudio?</button>
+    <button type="button" class="btn" id="facu" @click="character3D.changeCurrentAnimation(1)">Facultad</button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -24,9 +15,9 @@ import { Character3D } from '@/utils/Character3D';
 
 @Component
 export default class Character extends Vue {
+  private character3D!: Character3D;
   mounted() {
-    // eslint-disable-next-line
-    const character3D = new Character3D();
+    this.character3D = new Character3D();
   }
 }
 </script>
@@ -56,6 +47,15 @@ a:hover {
 #scene-container {
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 80%;
+}
+.btn {
+  position: relative;
+  top: 80vh;
+  height: 5rem;
+  width: 8rem;
+}
+#facu {
+  left: 5rem;
 }
 </style>
