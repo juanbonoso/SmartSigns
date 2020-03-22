@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import HelloWorld from '../components/HelloWorld.vue';
-import { ThreeJSTest } from '@/utils/Three';
+import { ThreeJSTest } from '@/utils/ThreeTest';
 @Component({
   components: {
     HelloWorld,
