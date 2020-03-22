@@ -20,13 +20,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { ThreeJSTest } from '@/utils/ThreeTest';
+import { Character3D } from '@/utils/Character3D';
 
 @Component
-export default class Character3D extends Vue {
+export default class Character extends Vue {
   mounted() {
-    const threeJSTest = new ThreeJSTest();
-    threeJSTest.render();
+    // eslint-disable-next-line
+    const character3D = new Character3D();
   }
 }
 </script>
