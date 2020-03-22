@@ -15,7 +15,7 @@ export class Character3D {
     this.container = document.querySelector('#scene-container') as HTMLElement;
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x8fbcd4);
-    
+
     this.createCamera();
     this.createControls();
     this.createLights();
@@ -56,12 +56,8 @@ export class Character3D {
       const model = gltf.scene.children[0];
       model.position.copy(position);
 
-      let animation = gltf.animations[0];
-      console.log('ANIMATION');
-      console.log(gltf.animations);
-      if (gltf.animations.length > 1) {
-        animation = gltf.animations[1];
-      }
+      const animation = gltf.animations[0];
+
       const mixer = new THREE.AnimationMixer(model);
       this.mixers.push(mixer);
 
@@ -71,7 +67,7 @@ export class Character3D {
       this.scene.add(model);
     };
 
-    // the loader will report the loading progress to this function\
+    // the loader will report the loading progress to this function
     // eslint-disable-next-line
     const onProgress = () => {};
 
@@ -84,13 +80,13 @@ export class Character3D {
     // load the first model. Each model is loaded asynchronously,
     // so don't make any assumption about which one will finish loading first
     const parrotPosition = new THREE.Vector3(0, 0, 2.5);
-    loader.load('@/models/Parrot.glb', gltf => onLoad(gltf, parrotPosition), onProgress, onError);
+    loader.load('./models/Parrot.glb', gltf => onLoad(gltf, parrotPosition), onProgress, onError);
 
     const flamingoPosition = new THREE.Vector3(7.5, 0, -10);
-    loader.load('@/models/Flamingo.glb', gltf => onLoad(gltf, flamingoPosition), onProgress, onError);
+    loader.load('./models/Flamingo.glb', gltf => onLoad(gltf, flamingoPosition), onProgress, onError);
 
     const storkPosition = new THREE.Vector3(0, -2.5, -10);
-    loader.load('@/models/Stork.glb', gltf => onLoad(gltf, storkPosition), onProgress, onError);
+    loader.load('./models/Stork.glb', gltf => onLoad(gltf, storkPosition), onProgress, onError);
   }
 
   createRenderer() {
