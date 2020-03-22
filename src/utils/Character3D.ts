@@ -56,7 +56,11 @@ export class Character3D {
       const model = gltf.scene.children[0];
       model.position.copy(position);
 
-      const animation = gltf.animations[0];
+      let animation = gltf.animations[0];
+      console.table(gltf.animations);
+      if (gltf.animations.length > 1) {
+        animation = gltf.animations[0];
+      }
 
       const mixer = new THREE.AnimationMixer(model);
       this.mixers.push(mixer);
