@@ -1,11 +1,13 @@
 import Vue from 'vue';
 // import App from "./App.vue";
-import Character from './pages/Character.vue';
+// import Character from './pages/Character.vue';
+import Speech from './pages/Speech.vue';
+
 import store from './store';
 
 Vue.config.productionTip = false;
 
 new Vue({
   store,
-  render: h => h(Character),
+  render: h => h(Speech),
 }).$mount('#app');
