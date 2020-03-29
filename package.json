@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "microsoft-cognitiveservices-speech-sdk": "^1.10.1",
     "three": "^0.114.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.2",
