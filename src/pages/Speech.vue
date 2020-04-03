@@ -42,8 +42,15 @@ export default class Speech extends Vue {
   private phraseDiv!: HTMLTextAreaElement;
   private startRecognizeOnceAsyncButton!: HTMLButtonElement;
   private recognizer!: SpeechSDK.SpeechRecognizer;
-  startSpeech() {
+
+  mounted() {
     this.startRecognizeOnceAsyncButton = document.getElementById('startRecognizeOnceAsyncButton') as HTMLButtonElement;
+    this.phraseDiv = document.getElementById('phraseDiv') as HTMLTextAreaElement;
+  }
+
+  startSpeech() {
+    this.startRecognizeOnceAsyncButton.disabled = true;
+    this.phraseDiv.innerHTML = '';
     const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(this.subscription, this.region);
     speechConfig.speechRecognitionLanguage = 'es-ES';
     const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
@@ -53,15 +60,13 @@ export default class Speech extends Vue {
       result => {
         self.startRecognizeOnceAsyncButton.disabled = false;
         self.phraseDiv.innerHTML += result.text;
-        window.console.log(result);
-
         self.recognizer.close();
         // self.recognizer = undefined;
       },
       err => {
         self.startRecognizeOnceAsyncButton.disabled = false;
         self.phraseDiv.innerHTML += err;
-        window.console.log(err);
+        console.log(err);
 
         self.recognizer.close();
         // self.recognizer = undefined;
